@@ -52,7 +52,8 @@
     <script src="https://cdn.jsdelivr.net/npm/luckyexcel/dist/luckyexcel.umd.js"></script>
     <!-- 引入luckysheet组件库 end-->
 
-    <!-- <script type="module" src="/bma/index.js"></script> -->
+    <script type="module" src="./index.js"></script>
+    <script type="module" src="./utils/config.js"></script>
 
     <style type="text/css">
       @media screen and (max-width: 650px) {
@@ -65,17 +66,16 @@
 
   <body>
     <div id="app"></div>
-
-    <script>
+    <!-- <script>
       window.dev =
         window.location.hostname == "127.0.0.1" ||
         window.location.hostname == "localhost";
-      let src = window.dev ? "/index.js" : "/bma/index.js";
+      let src = window.dev ? "/index.js" : "/index.js";
       console.log(src);
       var script = document.createElement("script");
       script.src = src;
       script.type = "module";
       document.body.appendChild(script);
-    </script>
+    </script> -->
   </body>
 </html>
