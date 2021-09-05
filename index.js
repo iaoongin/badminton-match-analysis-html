@@ -1,6 +1,6 @@
+import './utils/request.js'
 import { IndexPage } from './page/index/index.js'
 import { MatchPage } from './page/match/index.js'
-import './utils/request.js'
 
 const NotFound = {template: '<p>Page not found</p>'}
 const About = {template: '<p>about page</p>'}
