@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-ico" href="./favicon.ico" />
+    <title>主页</title>
+    <!-- 引入样式 -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mint-ui/lib/style.css"> -->
+    <!-- 引入组件库 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/mint-ui/lib/index.js"></script> -->
+
+    <!-- 先引入 Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 引入element-ui组件库 start-->
+    <!-- 引入样式 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/element-ui/lib/theme-chalk/index.css"
+    />
+    <!-- 引入组件库 -->
+    <script src="https://cdn.jsdelivr.net/npm/element-ui/lib/index.js"></script>
+    <!-- 引入element-ui组件库 end-->
+
+    <!-- 引入axios组件库 start-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- 引入crypto-js组件库 start-->
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/md5.js"></script>
+
+    <!-- 引入luckysheet组件库 start-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/css/pluginsCss.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/plugins.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/css/luckysheet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/assets/iconfont/iconfont.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/js/plugin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/luckysheet.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luckyexcel/dist/luckyexcel.umd.js"></script>
+    <!-- 引入luckysheet组件库 end-->
+
+    <!-- <script type="module" src="/bma/index.js"></script> -->
+
+    <style type="text/css">
+      @media screen and (max-width: 650px) {
+        .el-message-box {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      window.dev =
+        window.location.hostname == "127.0.0.1" ||
+        window.location.hostname == "localhost";
+      let src = window.dev ? "/index.js" : "/bma/index.js";
+      console.log(src);
+      var script = document.createElement("script");
+      script.src = src;
+      script.type = "module";
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>
