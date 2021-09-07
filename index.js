@@ -17,7 +17,8 @@ const app = new Vue({
     el: "#app",
     data: {
         currentRoute: window.location.hash.split("#")[1] || '/',
-        content: ""
+        content: "",
+        loading: false
     },
     computed: {
         ViewComponent() {
