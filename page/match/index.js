@@ -22,6 +22,7 @@ export const MatchPage = {
         responseType: "blob",
       })
       .then((response) => {
+        that.loading.close();
         var reader = new FileReader();
         reader.onload = (e) => {
           //预处理
@@ -50,7 +51,7 @@ export const MatchPage = {
                 functionButton: `<button id='btnSave' class='el-button el-button--default el-button--medium'>保存</button>`,
               };
 
-              that.loading.close();
+              
 
               luckysheet.create(options);
 
