@@ -21,7 +21,7 @@ export const IndexPage = {
             </el-page-header>
             <el-row>
                 <el-col :span="24">
-                    <el-table :data="tableData" style="width: 100%" border stripe>
+                    <el-table :data="tableData" style="width: 100%" border stripe v-loading='loading'>
                         <el-table-column type="index" label="序号" align="right" fixed></el-table-column>
                         <el-table-column prop="player" label="运动员" sortable align="right"></el-table-column>
                         <el-table-column prop="totalScore" label="累计得分" sortable align="right"></el-table-column>
@@ -39,7 +39,7 @@ export const IndexPage = {
         return {
             tableData: [],
             title: "个人排行",
-            loading: true,
+            loading: false,
             isLogin: true,
             dropDownMenu: {
                 "single": "单打排行",
@@ -61,13 +61,17 @@ export const IndexPage = {
         fetch(command) {
             this.title = this.dropDownMenu[command]
             // console.log(this.title)
-            // this.loading = true
+            this.loading = true
+            var that = this
             axios.get('api/rank/' + command)
                 .then(response => {
                     console.log(response)
-                    this.tableData = this.formatData(response.data.data)
-                    this.loading = false
-                }).catch(e=>{this.loading = false})
+                    
+                    that.tableData = this.formatData(response.data.data)
+                    setTimeout(() => {
+                        that.loading = false 
+                    }, 100);
+                })
         },
         init() {
             this.fetch('single')
