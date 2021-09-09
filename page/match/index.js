@@ -1,18 +1,19 @@
 export const MatchPage = {
-  template: `<div id="luckysheet" style="margin:0px;padding:0px;position:absolute;width:100%;height:100%;left: 0px;top: 0px;"></div>
+  template: `<div id="luckysheet" style="margin:0px;padding:0px;position:absolute;width:100%;height:100%;left: 0px;top: 0px;">加载中...</div>
 `,
   data() {
     return {
       loading: {},
+      luckysheetDiv: {}
     };
   },
   mounted() {
-    this.loading = this.$loading({
+    /* this.loading = this.$loading({
       lock: true,
       text: "Loading",
       //   spinner: "el-icon-loading",
       //   background: "rgba(0, 0, 0, 0.7)",
-    });
+    }); */
   },
   created() {
     // console.log(this)
@@ -22,7 +23,7 @@ export const MatchPage = {
         responseType: "blob",
       })
       .then((response) => {
-        that.loading.close();
+        /* that.loading.close(); */
         var reader = new FileReader();
         reader.onload = (e) => {
           //预处理
@@ -50,6 +51,8 @@ export const MatchPage = {
                 userInfo: "",
                 functionButton: `<button id='btnSave' class='el-button el-button--default el-button--medium'>保存</button>`,
               };
+
+              document.getElementById('luckysheet').innerHTML = ''
 
               that.$nextTick(() => {
                 // 以服务的方式调用的 Loading 需要异步关闭
