@@ -3,15 +3,15 @@ export const MatchPage = {
 `,
   data() {
     return {
-        loading: {}
+      loading: {},
     };
   },
   mounted() {
     this.loading = this.$loading({
       lock: true,
       text: "Loading",
-    //   spinner: "el-icon-loading",
-    //   background: "rgba(0, 0, 0, 0.7)",
+      //   spinner: "el-icon-loading",
+      //   background: "rgba(0, 0, 0, 0.7)",
     });
   },
   created() {
@@ -22,7 +22,7 @@ export const MatchPage = {
         responseType: "blob",
       })
       .then((response) => {
-        that.loading.close();
+
         var reader = new FileReader();
         reader.onload = (e) => {
           //预处理
@@ -39,7 +39,7 @@ export const MatchPage = {
             binary,
             function (exportJson, luckysheetfile) {
               // Get the worksheet data after conversion
-            //   console.log(exportJson);
+              //   console.log(exportJson);
               // console.log(luckysheetfile)
               //配置项
               var options = {
@@ -51,11 +51,14 @@ export const MatchPage = {
                 functionButton: `<button id='btnSave' class='el-button el-button--default el-button--medium'>保存</button>`,
               };
 
-              
-
               luckysheet.create(options);
 
               that.bindListenner();
+
+              that.$nextTick(() => {
+                // 以服务的方式调用的 Loading 需要异步关闭
+                that.loading.close();
+              });
             }
           );
         };
