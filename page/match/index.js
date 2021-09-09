@@ -50,6 +50,7 @@ export const MatchPage = {
                 title: "白石龙比赛记录",
                 userInfo: "",
                 functionButton: `<button id='btnSave' class='el-button el-button--default el-button--medium'>保存</button>`,
+                myFolderUrl: '/'
               };
 
               document.getElementById('luckysheet').innerHTML = ''
