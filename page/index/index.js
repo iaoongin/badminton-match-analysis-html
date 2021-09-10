@@ -1,5 +1,5 @@
 export const IndexPage = {
-    template: `
+  template: `
         <div id="app">
             <el-row>
                 <el-card class="box-card">
@@ -9,12 +9,16 @@ export const IndexPage = {
                               </span>
         
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item v-for="(value,key,index) in dropDownMenu" :command='key'>{{value}}
-                            </el-dropdown-item>
+                            <div v-for="(dropDownMenuItem, idx) in dropDownMenuGroup"> 
+                                <el-dropdown-item v-for="(value,key,index) in dropDownMenuItem" :command='key' :idx='index' 
+                                :divided='idx > 0 &&  index == 0'>{{value}}</el-dropdown-item>
+                            </div>
+                           
                         </el-dropdown-menu>
         
                     </el-dropdown>
-                    <el-link type="primary" href='#/match' target="_blank" style="margin-left: 2rem;">预览原始数据</el-link>
+                    <el-link type="primary" href='#/match' target="_blank" style="margin-left: 2rem;">数据录入</el-link>
+                    <el-link type="primary" :href='rawPicDocUrl' target="_blank" style="margin-left: 2rem;">原始图片</el-link>
                     
                 </el-card>
             </el-row>
@@ -35,65 +39,83 @@ export const IndexPage = {
             </el-row>
         </div>
 `,
-    data() {
-        return {
-            tableData: [],
-            title: "个人排行",
-            loading: false,
-            isLogin: true,
-            dropDownMenu: {
-                "single": "单打排行",
-                "manSingle": "男单排行",
-                "femaleSingle": "女单排行",
-
-                "doubles": "双打排行",
-                "manDoubles": "男双排行",
-                "femaleDoubles": "女双排行",
-                "mixedDoubles": "混双排行"
-            },
+  data() {
+    return {
+      tableData: [],
+      title: "个人排行",
+      loading: false,
+      isLogin: true,
+      dropDownMenuGroup: [
+        {
+          single: "单打排行",
+          manSingle: "男单排行",
+          femaleSingle: "女单排行",
+        },
+        {
+          doubles: "双打排行",
+          manDoubles: "男双排行",
+          femaleDoubles: "女双排行",
+          mixedDoubles: "混双排行",
+        },
+      ],
+      rawPicDocUrl: "#",
+    };
+  },
+  created() {},
+  mounted() {
+    this.init();
+    this.fillRawPicDocUrl();
+  },
+  methods: {
+    fetch(command) {
+      // 设置标题
+      for (var t of this.dropDownMenuGroup) {
+        var title = t[command];
+        if (title) {
+          this.title = title;
         }
+      }
 
-    },
-    created() {
-        this.init()
-    },
-    methods: {
-        fetch(command) {
-            this.title = this.dropDownMenu[command]
-            // console.log(this.title)
-            this.loading = true
-            var that = this
-            axios.get('api/rank/' + command)
-                .then(response => {
-                    console.log(response)
-                    
-                    that.tableData = this.formatData(response.data.data)
-                    setTimeout(() => {
-                        that.loading = false 
-                    }, 100);
-                })
-        },
-        init() {
-            this.fetch('single')
-        },
-        handleCommand: function (command) {
-            this.fetch(command)
-        },
-        handleRawDataPreview: function () {
-            window.location.href = '/match'
-        },
-        formatData(data){
-            return data.map(x =>{
-                x.winRatio = (x.winRatio * 100).toFixed(2) +"%"
-                x.scorePerMatch = (x.scorePerMatch).toFixed(2)
-                return x
-            })
-        }
+      // console.log(this.title)
+      this.loading = true;
+      var that = this;
+      axios.get("api/rank/" + command).then((response) => {
+        // console.log(response)
 
+        that.tableData = this.formatData(response.data.data);
+        setTimeout(() => {
+          that.loading = false;
+        }, 100);
+      });
     },
-    watch: {
-        title() {
-            document.title = this.title
-        }
-    }
-}
+    init() {
+      this.fetch("single");
+      this.fillRawPicDocUrl();
+    },
+    handleCommand: function (command) {
+      this.fetch(command);
+    },
+    handleRawDataPreview: function () {
+      window.location.href = "/match";
+    },
+    formatData(data) {
+      return data.map((x) => {
+        x.winRatio = (x.winRatio * 100).toFixed(2) + "%";
+        x.scorePerMatch = x.scorePerMatch.toFixed(2);
+        return x;
+      });
+    },
+    fillRawPicDocUrl() {
+      axios.get("api/metaInfo/").then((response) => {
+        // console.log(response)
+        console.log(response.data.data.rawPicDocUrl);
+        this.rawPicDocUrl = response.data.data.rawPicDocUrl;
+      });
+    },
+  },
+  watch: {
+    title() {
+      document.title = this.title;
+    },
+  },
+};
