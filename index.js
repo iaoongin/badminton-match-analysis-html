@@ -1,6 +1,7 @@
 import './utils/request.js'
 import { IndexPage } from './page/index/index.js'
 import { MatchPage } from './page/match/index.js'
+import { VisualizationPage } from './page/visualization/index.js'
 
 const NotFound = {template: '<p>Page not found</p>'}
 const About = {template: '<p>about page</p>'}
@@ -9,6 +10,7 @@ const routes = {
     '/': IndexPage,
     '/about': About,
     '/match': MatchPage,
+    '/visualization': VisualizationPage,
 }
 
 

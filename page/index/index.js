@@ -17,8 +17,9 @@ export const IndexPage = {
                         </el-dropdown-menu>
         
                     </el-dropdown>
-                    <el-link type="primary" href='#/match' target="_blank" style="margin-left: 2rem;">数据录入</el-link>
-                    <el-link type="primary" :href='rawPicDocUrl' target="_blank" style="margin-left: 2rem;">原始图片</el-link>
+                    <el-link type="primary" :underline="false" href='#/visualization' target="_blank" style="margin-left: 1rem;">数据图表</el-link>
+                    <el-link type="primary" :underline="false" href='#/match' target="_blank" style="margin-left: 1rem;">数据录入</el-link>
+                    <el-link type="primary" :underline="false" :href='rawPicDocUrl' target="_blank" style="margin-left: 1rem;">原始图片</el-link>
                     
                 </el-card>
             </el-row>
@@ -64,7 +65,7 @@ export const IndexPage = {
   created() {},
   mounted() {
     this.init();
-    this.fillRawPicDocUrl();
+    this.fetchMeta();
   },
   methods: {
     fetch(command) {
@@ -105,7 +106,7 @@ export const IndexPage = {
         return x;
       });
     },
-    fillRawPicDocUrl() {
+    fetchMeta() {
       axios.get("api/metaInfo/").then((response) => {
         // console.log(response)
         console.log(response.data.data.rawPicDocUrl);
