@@ -7,7 +7,7 @@ var dev = {
 
 var prod = {
   indexSrc: "/index.js",
-  baseURL: "http://119.23.190.226/bma-api/",
+  baseURL: "https://proxy.yffjglcms.com/bma-api",
 };
 
 let isProd = !(
